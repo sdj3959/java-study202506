@@ -89,4 +89,6 @@ public class MemberRepository {
     boolean isDuplicateEmail(String inputEmail) {
         return findMemberByEmail(inputEmail) != null;
     }
+
+
 }
