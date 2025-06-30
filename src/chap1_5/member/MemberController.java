@@ -42,14 +42,10 @@ public class MemberController {
                 changePassword();
                 break;
             case "5":
-                // 이메일을 입력받고 있으면 패스워드도 입력받아서 삭제
-                System.out.println("\n# 회원 정보를 삭제합니다.");
+                deleteMember();
                 break;
             case "6":
-                // hint:
-                // 1. 배열을 2개 관리함
-                // 2. 논리적 삭제를 구현 (실제로 배열에 지우는게 아니라 지우는 척함)
-                System.out.println("\n# 삭제된 회원 정보를 복구합니다.");
+                restoreMember();
                 break;
             case "7":
                 System.out.println("\n# 프로그램을 종료합니다.");
@@ -60,6 +56,26 @@ public class MemberController {
         }// end switch
 
         prompt("======== 계속하시려면 Enter... =========");
+    }
+
+    void deleteMember() {
+        // 이메일을 입력받고 있으면 패스워드도 입력받아서 삭제
+        System.out.println("\n# 회원 정보를 삭제합니다.");
+        Member foundMember = findMember("삭제");
+
+        if (foundMember != null) {
+            // 삭제 전에 패스워드를 확인
+            String inputPassword = prompt("# 비밀번호: ");
+            if (foundMember.isPasswordMatch(inputPassword)) {
+                // 실제 삭제 진행
+                mr.removeMember(foundMember.email);
+                System.out.println("\n# 회원 탈퇴처리가 완료되었습니다!");
+            } else {
+                System.out.println("\n# 비밀번호가 틀렸습니다. 삭제를 취소합니다.");
+            }
+        } else {
+            System.out.println("\n# 조회 결과가 없습니다!");
+        }
     }
 
     void changePassword() {
@@ -203,5 +219,17 @@ public class MemberController {
     String prompt(String message) {
         System.out.print(message);
         return sc.nextLine();
+    }
+
+    void restoreMember() {
+        String inputEmail = prompt("# 복구 대상의 이메일: ");
+        // 복구 대상 탐색 및 복구 처리
+        boolean flag = mr.restore(inputEmail);
+
+        if (flag) {
+            System.out.println("\n# 복구처리가 완료되었습니다.");
+        } else {
+            System.out.println("\n# 복구에 실패했습니다.");
+        }
     }
 }
