@@ -5,26 +5,26 @@ package chap1_5.member;
  * CRUD 작업을 수행할 수 있는 메서드를 제공하며 회원 추가,
  * 회원 목록 조회, 특정 조건으로 회원 검색 등의 기능을 수행합니다.
  *
- * @author Shin
+ * @author Hong
  * @since 2025.06.27 ~
  * @version 1.0
  */
-
 // 회원들의 CRUD를 담당하는 창고(데이터베이스) 역할
 public class MemberRepository {
 
     // 회원들을 저장할 배열
-    // String[] => ['','','']
-    // int[] => [10,20,30]
-    // Member[] => [{id:'',memberName:'', ... },{},{}]
+    // String[] => ['', '', '']
+    // int[] => [10, 20, 30]
+    // Member[] => [{ id: '', memberName: '' }, {}, {}]
     Member[] memberList; // 가입된 회원 배열
 
     MemberRepository() {
         memberList = new Member[] {
-                new Member(15,"abc123@def.com", "1234", "콩벌레", Gender.MALE)
-                , new Member(25,"ffff@ggg.com", "5678", "팥죽이", Gender.FEMALE)
-                , new Member(35,"xxx@ccc.com", "9089", "카레빵", Gender.FEMALE)
+                new Member(15, "abc123@def.com", "1234", "콩벌레", Gender.MALE)
+                , new Member(25, "fff@ggg.com", "5678", "팥죽이", Gender.FEMALE)
+                , new Member(35, "xxx@ccc.com", "9876", "카레빵", Gender.FEMALE)
         };
+
     }
 
     // 메서드
@@ -42,7 +42,7 @@ public class MemberRepository {
      * @return 회원 목록의 총 회원 수
      */
     int size() {
-        return this.memberList.length;
+        return memberList.length;
     }
 
     /**
@@ -73,22 +73,45 @@ public class MemberRepository {
      * @return 해당 이메일을 가진 회원 객체,
      * 해당 이메일을 가진 회원이 없는 경우 null
      *
-     * @author - Mr. Shin
-     * @modifier - Mr. Shin
-     * @since - 2025.06.27
+     * @author Mr. Hong
+     * @since 2025.06.27
      */
     Member findMemberByEmail(String targetEmail) {
-        for(Member member : memberList) {
-            if (targetEmail.equals(member.email)) {
-                return member;
-            }
-        }
-        return null; // 탐색에 실패한 경우
+        int index = findIndexByEmail(targetEmail);
+        return index != -1 ? memberList[index] : null;
     }
 
+    /**
+     * 주어진 이메일 주소가 중복되었는지 확인합니다.
+     * 이메일이 중복된 경우 true를 반환하고, 그렇지 않으면 false를 반환합니다.
+     *
+     * @param inputEmail 확인할 이메일 주소
+     * @return 이메일이 중복된 경우 true, 중복되지 않은 경우 false
+     */
     boolean isDuplicateEmail(String inputEmail) {
         return findMemberByEmail(inputEmail) != null;
     }
 
+    int findIndexByEmail(String email) {
+        for (int i = 0; i < memberList.length; i++) {
+            if (memberList[i].email.equals(email)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
+    public void removeMember(String email) {
+        // 삭제 대상의 인덱스를 알아와야 함
+        int index = findIndexByEmail(email);
+
+        for (int i = index; i < memberList.length - 1; i++) {
+            memberList[i] = memberList[i + 1];
+        }
+        Member[] temp = new Member[memberList.length - 1];
+        for (int i = 0; i < temp.length; i++) {
+            temp[i] = memberList[i];
+        }
+        memberList = temp;
+    }
 }
