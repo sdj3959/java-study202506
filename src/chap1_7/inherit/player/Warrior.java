@@ -11,6 +11,15 @@ public class Warrior extends Player {
         this.rage = 0;
     }
 
+    // 오버라이딩: 부모가 물려준 메서드를 고쳐 쓰는 것
+    // 규칙: 1. 부모의 시그니처(이름, 리턴타입, 파라미터)와 동일해야 함
+    //       2. 접근제어자는 more public
+    @Override   // 오버라이딩 룰을 위반했는지 체크
+    public void showStatus() {
+        super.showStatus();
+        System.out.println("# 분노: " + this.rage);
+    }
+
     void dash() {
         System.out.printf("%s님이 돌진합니다.\n",this.nickName);
     }
