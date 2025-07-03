@@ -1,6 +1,6 @@
 package chap1_10.inter;
 
-public class BullDog implements Pet{
+public class BullDog implements Pet, Wild, Huntable{
     @Override
     public void handle() {
 
@@ -8,6 +8,16 @@ public class BullDog implements Pet{
 
     @Override
     public void inject() {
+
+    }
+
+    @Override
+    public void violent() {
+
+    }
+
+    @Override
+    public void hunt() {
 
     }
 }
