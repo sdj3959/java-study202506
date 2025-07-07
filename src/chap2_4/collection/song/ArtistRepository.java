@@ -76,4 +76,33 @@ public class ArtistRepository {
         Artist artist = artistMap.get(name);
         return artist.getSongList();
     }
+
+    /**
+     * 모든 가수명과 그 가수의 노래개수를 리턴해야함.
+     */
+    public Map<String, Integer> getArtistNameAndSongCount() {
+        // 목표: 1. 맵에 있는 가수명을 모두 추출
+        //       2. 그 가수의 노래목록을 모두 추출 -> 개수를 셈
+
+        /*
+            {
+                '동방신기': 4,
+                '티아라': 6,
+                '아이유': 2,
+            }
+         */
+        Map<String, Integer> artistData = new HashMap<>();
+
+        for (String artistName : artistMap.keySet()) {
+            // 가수명 추출
+            // 노래목록 추출
+            Artist artist = artistMap.get(artistName);
+            Set<String> songList = artist.getSongList();
+            int size = songList.size();
+
+            artistData.put(artistName, size);
+        }
+
+        return artistData;
+    }
 }

@@ -3,7 +3,9 @@ package chap2_4.collection.song;
 import java.util.HashSet;
 import java.util.Set;
 
+// 가수
 public class Artist {
+
     private final String artistName; // 가수명
     private final Set<String> songList; // 노래목록
 
