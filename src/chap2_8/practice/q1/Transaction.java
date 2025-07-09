@@ -26,10 +26,10 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "Transaction{" +
-                "trader=" + trader +
-                ", year=" + year +
-                ", value=" + value +
+        return "\n{" +
+                "Trader: " + trader.getName() + " in "+ trader.getCity() +
+                ", year: " + year +
+                ", value: " + value +
                 '}';
     }
 }
