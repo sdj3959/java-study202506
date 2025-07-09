@@ -6,6 +6,8 @@ public class Apple {
 
     private int weight; // 무게
     private Color color; // 사과의 색상
+    private int sweet;   // 당도
+    private String origin; // 원산지
 
     public Apple(int weight, Color color) {
         this.weight = weight;
@@ -45,5 +47,14 @@ public class Apple {
     @Override
     public int hashCode() {
         return Objects.hash(weight, color);
+    }
+
+    // 색상의 첫글자만 추출해서 반환하는 메서드
+    public char getColorFirstCharacter() {
+        return this.color.toString().charAt(0);
+    }
+
+    public String getAppleDescription() {
+        return String.format("%s색 사과는 %dg입니다.", this.getColor().toString(), this.getWeight());
     }
 }
