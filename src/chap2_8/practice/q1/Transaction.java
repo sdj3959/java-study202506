@@ -32,4 +32,11 @@ public class Transaction {
                 ", value: " + value +
                 '}';
     }
+    public String toStringPrettier() {
+        return "{" +
+                "trader: " + trader.getName() + "  in " + trader.getCity() +
+                ", year: " + year +
+                ", value: " + value +
+                '}';
+    }
 }
